@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-13)b6iglvkxo9z*)=j(va7i&wla6(yhuh4*3_9rm!hu67pqwe3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
+
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +70,14 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'chitchat.wsgi.application'
+ASGI_APPLICATION = 'chitchat.asgi.application'
+
+#Add the default InMemory Channel layer for developemt. In production Django recommends to use something like Redis
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 
 # Database
